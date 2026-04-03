@@ -38,3 +38,11 @@ def is_logged_in(login_page, credentials):
 @pytest.fixture
 def checkout_page(is_logged_in):
     return CheckoutPage(is_logged_in.page)
+@pytest.fixture(params=[
+    {"first_name": "Jake", "last_name": "Paul", "postal_code": ""},
+    {"first_name": "", "last_name": "Paul", "postal_code": "1111"},
+    {"first_name": "Jake", "last_name": "", "postal_code": "1111"},
+    {"first_name": "", "last_name": "", "postal_code": ""},
+])
+def invalid_information(request):
+    return request.param

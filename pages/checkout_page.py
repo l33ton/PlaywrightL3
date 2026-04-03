@@ -22,6 +22,8 @@ class CheckoutPage(BasePage):
         self.last_name_input.fill(last_name)
         self.postal_code_input.fill(postal_code)
 
-    def finish_your_order(self):
+    def continue_to_finalize(self):
         self.continue_checkout_button.click()
+
+    def finish(self):
         self.finish_checkout_button.click()
