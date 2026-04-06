@@ -17,3 +17,5 @@ class LoginPage(BasePage):
 
     def submit(self):
         self.submit_button.click()
+
+        #
