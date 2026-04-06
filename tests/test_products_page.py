@@ -4,12 +4,12 @@ from playwright.sync_api import expect
 from constants import *
 
 def test_add_item_to_shopping_cart(is_logged_in, products_page):
-    products_page.add(products_page.ITEM_1_LOCATOR)
+    products_page.add(products_page.ITEM_LOCATOR)
     expect(products_page.page.locator(SHOPPING_CART_BADGE_LOCATOR)).to_be_visible()
 
 def test_remove_item_from_shopping_cart(is_logged_in, products_page):
-    products_page.add(products_page.ITEM_1_LOCATOR)
-    products_page.remove(products_page.ITEM_1_LOCATOR)
+    products_page.add(products_page.ITEM_LOCATOR)
+    products_page.remove(products_page.ITEM_LOCATOR)
     expect(products_page.page.locator(SHOPPING_CART_BADGE_LOCATOR)).not_to_be_visible()
 
 @pytest.mark.parametrize("item_number", range(6))

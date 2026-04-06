@@ -29,20 +29,39 @@ def login_page(page:Page, base_url):
     page.goto(base_url)
     return LoginPage(page)
 @pytest.fixture
-def products_page(is_logged_in):
-    return ProductsPage(is_logged_in.page)
+def products_page(page):
+    return ProductsPage(page)
 @pytest.fixture
 def is_logged_in(login_page, credentials):
     login_page.login(credentials["username"], credentials["password"])
     return login_page
 @pytest.fixture
-def checkout_page(is_logged_in):
-    return CheckoutPage(is_logged_in.page)
+def checkout_page(page):
+    return CheckoutPage(page)
 @pytest.fixture(params=[
     {"first_name": "Jake", "last_name": "Paul", "postal_code": ""},
     {"first_name": "", "last_name": "Paul", "postal_code": "1111"},
     {"first_name": "Jake", "last_name": "", "postal_code": "1111"},
-    {"first_name": "", "last_name": "", "postal_code": ""},
+    {"first_name": "", "last_name": "", "postal_code": ""}
 ])
 def invalid_information(request):
     return request.param
+
+@pytest.fixture
+def finalize_order(products_page, checkout_information, checkout_page):
+    products_page.add(products_page.ITEM_LOCATOR)
+    checkout_page.navigate_to_checkout()
+    checkout_page.fill_your_information(checkout_information["first_name"], checkout_information["last_name"],
+                                        checkout_information["postal_code"])
+    checkout_page.continue_to_finalize()
+
+@pytest.fixture
+def finalize_with_invalid_information(products_page, invalid_information, checkout_page):
+    products_page.add(products_page.ITEM_LOCATOR)
+    checkout_page.navigate_to_checkout()
+    checkout_page.fill_your_information(
+        invalid_information["first_name"],
+        invalid_information["last_name"],
+        invalid_information["postal_code"]
+    )
+    checkout_page.continue_to_finalize()
