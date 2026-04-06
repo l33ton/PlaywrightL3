@@ -29,15 +29,15 @@ def login_page(page:Page, base_url):
     page.goto(base_url)
     return LoginPage(page)
 @pytest.fixture
-def products_page(page):
-    return ProductsPage(page)
+def products_page(is_logged_in):
+    return ProductsPage(is_logged_in.page)
 @pytest.fixture
 def is_logged_in(login_page, credentials):
     login_page.login(credentials["username"], credentials["password"])
     return login_page
 @pytest.fixture
-def checkout_page(page):
-    return CheckoutPage(page)
+def checkout_page(is_logged_in):
+    return CheckoutPage(is_logged_in.page)
 @pytest.fixture(params=[
     {"first_name": "Jake", "last_name": "Paul", "postal_code": ""},
     {"first_name": "", "last_name": "Paul", "postal_code": "1111"},
