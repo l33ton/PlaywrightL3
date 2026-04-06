@@ -3,9 +3,7 @@ from pages.base_page import BasePage
 
 
 class ProductsPage(BasePage):
-    ITEM_1_LOCATOR = "sauce-labs-backpack"
-    ITEM_2_LOCATOR = "sauce-labs-bike-light"
-
+    ITEM_LOCATOR = "sauce-labs-backpack"
 
     def __init__(self, page):
         super().__init__(page)
