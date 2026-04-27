@@ -22,7 +22,7 @@ jobs:
           playwright install --with-deps chromium
 
       - name: Run Playwright tests
-        run: pytest
+        run: pytest --junitxml=results.xml
         env:
           PYTHONPATH: .
       - name: Publish Test Results
