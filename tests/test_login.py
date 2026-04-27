@@ -2,9 +2,11 @@ from playwright.sync_api import expect
 from constants import *
 
 
-def test_login_with_valid_credentials(is_logged_in, base_url):
-    expect(is_logged_in.page).to_have_url(f"{base_url}{INVENTORY_URL}")
-    expect(is_logged_in.page.locator(SHOPPING_CART_LOCATOR)).to_be_visible()
+def test_login_with_valid_credentials(login_page, credentials, base_url):
+    login_page.login(credentials["username"], credentials["password"])
+
+    expect(login_page.page).to_have_url(f"{base_url}{INVENTORY_URL}")
+    expect(login_page.page.locator(SHOPPING_CART_LOCATOR)).to_be_visible()
 
 def test_login_with_invalid_credentials(login_page, mock_credentials):
     login_page.login(mock_credentials["username"], mock_credentials["password"])

@@ -1,15 +1,18 @@
 import pytest
+import os
 from playwright.sync_api import Page
-
+from dotenv import load_dotenv
 from pages.checkout_page import CheckoutPage
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
 
 @pytest.fixture
 def credentials():
+    load_dotenv()
+    standard_password = os.getenv("PASSWORD")
     return {
         "username": "standard_user",
-        "password": "secret_sauce"
+        "password": f"{standard_password}"
     }
 @pytest.fixture
 def mock_credentials():
