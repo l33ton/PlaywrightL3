@@ -25,6 +25,7 @@ jobs:
         run: pytest --junitxml=results.xml
         env:
           PYTHONPATH: .
+          PASSWORD: ${{ secrets.PASSWORD }}
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
