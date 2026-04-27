@@ -1,0 +1,21 @@
+name: Learning CI/CD
+
+on: [push, pull_request]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: latest
+
+      - name: Install Dependencies
+        uses: pip install requirements.txt
+
+      - name: Run Playwright tests
+        uses: pytest
