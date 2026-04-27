@@ -15,7 +15,7 @@ jobs:
           python-version: latest
 
       - name: Install Dependencies
-        uses: pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Run Playwright tests
-        uses: pytest
+        run: pytest
